@@ -132,6 +132,31 @@
   .cta__d{font-size:13px;opacity:.92;margin:0 0 15px;line-height:1.65}
   .cta .btn--primary{background:#fff;color:var(--accent-deep);box-shadow:0 12px 22px -14px rgba(0,0,0,.55)}
 
+  /* ---- 付费完整版报告 · 弹窗 ---- */
+  .paywall{position:fixed;inset:0;z-index:98;display:flex;align-items:flex-end;justify-content:center}
+  .paywall[hidden]{display:none}
+  .paywall__mask{position:absolute;inset:0;background:rgba(15,26,21,.62);backdrop-filter:blur(3px)}
+  .paywall__card{position:relative;z-index:1;width:100%;max-width:520px;max-height:86vh;overflow:auto;
+    background:#fff;border-radius:26px 26px 0 0;padding:26px 22px 30px;box-shadow:0 -18px 44px -18px rgba(0,0,0,.5);
+    animation:pwUp .32s cubic-bezier(.22,.8,.3,1)}
+  @keyframes pwUp{from{transform:translateY(46px);opacity:0}to{transform:translateY(0);opacity:1}}
+  .paywall__close{position:absolute;top:12px;right:14px;width:32px;height:32px;border:none;border-radius:50%;
+    background:rgba(0,0,0,.06);color:var(--muted);font-size:20px;line-height:1;cursor:pointer;font-family:inherit}
+  .paywall__badge{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.06em;color:#fff;
+    background:linear-gradient(135deg,#e0533d,#f07a3c);padding:4px 10px;border-radius:999px;margin:0 0 10px}
+  .paywall__title{font-size:19px;font-weight:800;color:var(--ink);margin:0 0 6px}
+  .paywall__sub{font-size:12.5px;color:var(--muted);margin:0 0 14px;line-height:1.6}
+  .paywall__list{list-style:none;margin:0 0 14px;padding:14px;border-radius:16px;background:#f3f7f4;display:grid;gap:10px}
+  .paywall__list li{font-size:13.5px;line-height:1.55;color:var(--ink)}
+  .paywall__price{font-size:26px;font-weight:900;color:var(--accent-deep);margin:2px 0 12px}
+  .paywall__price s{font-size:14px;font-weight:600;color:var(--muted);margin-left:6px}
+  .paywall__qr{display:block;width:190px;height:190px;margin:0 auto 12px;object-fit:contain;
+    border-radius:16px;border:1.5px solid var(--rule);background:#f7faf8}
+  .paywall__qrph{width:190px;height:190px;margin:0 auto 12px;border-radius:16px;border:1.5px dashed rgba(23,131,106,.45);
+    background:#f0f6f2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;
+    color:#4c7a67;font-size:12px;font-weight:700;text-align:center;padding:10px;line-height:1.5}
+  .paywall__hint{font-size:12px;color:var(--muted);text-align:center;margin:0;line-height:1.6}
+
   .result__actions{display:flex;gap:10px;margin:14px 20px 0}
 
   .tiny{font-size:11.5px;color:var(--muted);margin:16px 20px 0;line-height:1.65}
@@ -227,9 +252,9 @@
     </section>
 
     <div class="cta">
-      <p class="cta__t">想要更贴合身体的进阶版？</p>
-      <p class="cta__d">进阶版会结合身高体重、球龄、运动习惯与既往不适，给出更具体的打法适配与装备方向。</p>
-      <a id="cta-link" class="btn btn--primary btn--lg" href="#" target="_blank" rel="noopener">了解进阶版 →</a>
+      <p class="cta__t">免费版告诉你「你是谁」，完整版教你「怎么练」</p>
+      <p class="cta__d">完整版报告含：打法深度拆解 · 专属 4 周训练计划 · 装备选购清单 · 伤病预防建议 · 实战对抗策略。</p>
+      <button id="cta-link" class="btn btn--primary btn--lg" type="button">解锁完整版报告 ¥9.9 →</button>
     </div>
 
     <div class="result__actions">
@@ -239,6 +264,31 @@
 
     <p class="tiny tiny--center">本测评仅作运动参考，不构成医疗建议。如有运动损伤，请咨询专业医生或康复师。</p>
   </section>
+
+  <!-- ========== 付费完整版报告 · 弹窗 ========== -->
+  <div id="paywall" class="paywall" hidden>
+    <div class="paywall__mask" id="paywall-mask"></div>
+    <div class="paywall__card" role="dialog" aria-modal="true" aria-label="完整版进阶报告">
+      <button id="paywall-close" class="paywall__close" type="button" aria-label="关闭">×</button>
+      <span class="paywall__badge">限时尝鲜价</span>
+      <h3 class="paywall__title">完整版进阶报告</h3>
+      <p class="paywall__sub">已根据你的测评结果（<b id="pw-type">—</b>）定制 · 约 10 页图文</p>
+      <ul class="paywall__list">
+        <li>📊 打法深度拆解：你的优势、致命短板与改进顺序</li>
+        <li>🎯 专属 4 周训练计划：按人格类型安排每周练什么</li>
+        <li>🛒 装备选购清单：拍 / 线 / 鞋，分 3 档预算直接抄作业</li>
+        <li>🩹 伤病预防：针对该打法最常见的劳损部位给出预防动作</li>
+        <li>⚔️ 实战策略：对抗 4 种人格对手的针对性战术</li>
+      </ul>
+      <div class="paywall__price"><span id="pw-price">¥9.9</span><s id="pw-origin">¥29.9</s></div>
+      <img id="pw-qr" class="paywall__qr" alt="收款码" hidden />
+      <div id="pw-qrph" class="paywall__qrph">
+        <span style="font-size:30px">💳</span>
+        <span>站长待配置收款码<br>（在代码 CONFIG.payQrImage 中填入图片链接）</span>
+      </div>
+      <p id="pw-hint" class="paywall__hint">付款后截图发小红书私信，10 分钟内收到你的专属报告 PDF</p>
+    </div>
+  </div>
 
 </div>
 
@@ -523,9 +573,13 @@
    * 可配置项：上线前改这里即可
    * ============================================================ */
   var CONFIG = {
-    // 结果页底部「了解进阶版」按钮的跳转地址，替换成你的小红书主页 / 服务市场链接
-    ctaUrl: 'https://www.xiaohongshu.com/user/profile/5ce8d0160000000005028a49',
-    ctaText: '了解进阶版 →',
+    // ============================================================
+    // 付费完整版报告 · 上线前只需改这一块
+    // ============================================================
+    price: '¥9.9',            // 展示价
+    priceOrigin: '¥29.9',     // 划线原价（制造锚点）
+    payQrImage: '',           // 收款码图片 URL（微信/支付宝都行）；留空则显示占位提示
+    contactHint: '付款后截图发小红书私信，10 分钟内收到你的专属报告 PDF',
     // 复制结果时附带的来源署名
     signature: '—— 来自【网球风格适配测评 · 16 题】'
   };
@@ -848,9 +902,9 @@
       ul.appendChild(li);
     });
 
-    var cta = $('cta-link');
-    cta.href = CONFIG.ctaUrl;
-    cta.textContent = CONFIG.ctaText;
+    // 把用户的人格类型注入付费弹窗（个性化钩子）
+    var pwType = $('pw-type');
+    if (pwType) pwType.textContent = TYPES[res.type].name;
 
     showScreen('screen-result');
     if (window.RadarChart) {
@@ -862,6 +916,37 @@
 
   function finish() {
     renderResult(score());
+  }
+
+  /* ============================================================
+   * 付费完整版报告 · 弹窗
+   * ============================================================ */
+  function openPaywall() {
+    var price = $('pw-price');
+    var origin = $('pw-origin');
+    var qr = $('pw-qr');
+    var qrph = $('pw-qrph');
+    var hint = $('pw-hint');
+    if (price) price.textContent = CONFIG.price;
+    if (origin) origin.textContent = CONFIG.priceOrigin;
+    if (hint) hint.textContent = CONFIG.contactHint;
+    if (qr && qrph) {
+      if (CONFIG.payQrImage) {
+        qr.src = CONFIG.payQrImage;
+        qr.hidden = false;
+        qrph.hidden = true;
+      } else {
+        qr.hidden = true;
+        qrph.hidden = false;
+      }
+    }
+    $('paywall').hidden = false;
+    document.body.style.overflow = 'hidden'; // 弹窗打开时锁背景滚动
+  }
+
+  function closePaywall() {
+    $('paywall').hidden = true;
+    document.body.style.overflow = '';
   }
 
   /* ============================================================
@@ -945,6 +1030,11 @@
     $('btn-back').addEventListener('click', goBack);
     $('btn-restart').addEventListener('click', restart);
     $('btn-copy').addEventListener('click', copyResult);
+
+    // 付费弹窗：按钮打开，× / 遮罩关闭
+    $('cta-link').addEventListener('click', openPaywall);
+    $('paywall-close').addEventListener('click', closePaywall);
+    $('paywall-mask').addEventListener('click', closePaywall);
 
     window.addEventListener('resize', function () {
       if (window.RadarChart) window.RadarChart.resize();
